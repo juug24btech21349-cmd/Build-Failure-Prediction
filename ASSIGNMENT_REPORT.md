@@ -89,9 +89,8 @@ train or evaluate a machine-learning prediction model.
 
 ### Checkpoint
 
-The checkpoint is successful when `pytest -v` completes with all tests passing.
-The tests are kept in the repository so the same checks can run locally and in
-CI.
+All 10 tests pass locally on Python 3.12. The tests are kept in the repository
+so the same checks can run locally and in CI.
 
 ## Lab 2: Baseline CI pipeline
 
@@ -136,18 +135,28 @@ final version.
 
 ### Screenshots to attach
 
-Capture these from the actual repository after the workflow runs; do not use
-mocked or edited run results:
+The following screenshots were captured from the actual repository's Actions
+pages:
 
 | Screenshot | GitHub page to capture | Suggested filename |
 |---|---|---|
-| Failed run overview | Actions → failed CI run, showing the red status and failed `build` job | `docs/screenshots/actions-red-run.png` |
-| Failure details | Failed run → `build` → expanded **Run tests** step, with the pytest assertion in view | `docs/screenshots/actions-red-test-error.png` |
-| Successful run | Actions → later successful CI run, showing the green status | `docs/screenshots/actions-green-run.png` |
+| Failed run overview | Actions → failed CI run, showing red status, failed `build`, and the annotation | `docs/screenshots/actions-red-run.png` |
+| Failed job details | Failed run → `build`; the **Run tests** step is marked with a red X | `docs/screenshots/actions-red-test-error.png` |
+| Successful run | Actions → later successful CI run, showing green status | `docs/screenshots/actions-green-run.png` |
 
-Save screenshots to `docs/screenshots/` and add them to the submission. A real
-GitHub Actions screenshot cannot exist until the workflow has been pushed and
-run; no run output should be represented as actual evidence before that.
+![GitHub Actions failed run overview](docs/screenshots/actions-red-run.png)
+
+![Failed build job with the Run tests step marked red](docs/screenshots/actions-red-test-error.png)
+
+![GitHub Actions successful run](docs/screenshots/actions-green-run.png)
+
+The test error is identified in **Actions → failed CI run → build job → Run
+tests**. The first run passed, run #2 failed on the intentionally incorrect
+boundary assertion, and run #3 passed after the expected value was restored:
+
+- [Run #1 — successful baseline](https://github.com/juug24btech21349-cmd/Build-Failure-Prediction/actions/runs/44811573304)
+- [Run #2 — controlled failure](https://github.com/juug24btech21349-cmd/Build-Failure-Prediction/actions/runs/44811737648)
+- [Run #3 — successful run after fix](https://github.com/juug24btech21349-cmd/Build-Failure-Prediction/actions/runs/44812380723)
 
 ### What I learned
 
@@ -163,13 +172,12 @@ run; no run output should be represented as actual evidence before that.
 
 ## Submission checklist
 
-- [ ] Push the project to the repository linked at the top of this report.
-- [ ] Confirm at least one green CI run in **Actions**.
-- [ ] Perform the controlled failure experiment, capture the red run and
-  failure step, then restore the expected value and push the fix.
-- [ ] Confirm the later green run and attach the three screenshots listed
-  above.
-- [ ] Include this report with the GitHub repository link when submitting.
+- [x] Push the project to the repository linked at the top of this report.
+- [x] Confirm a green CI run in **Actions**.
+- [x] Perform the controlled failure experiment, capture the red run and
+  failed test step, then restore the expected value and push the fix.
+- [x] Confirm the later green run and include the screenshots above.
+- [x] Include this report with the GitHub repository link when submitting.
 
 ## Repository layout
 
@@ -177,6 +185,7 @@ run; no run output should be represented as actual evidence before that.
 .
 ├── .github/workflows/ci.yml
 ├── ansible/
+├── docs/screenshots/
 ├── infra/
 ├── ml/
 ├── scripts/
